@@ -1,0 +1,69 @@
+<div class="page-container">
+  <div class="detail-wrapper">
+    <header class="detail-header">
+      <button mat-icon-button (click)="onGoBack()" aria-label="Go back">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>Candidate Details</h1>
+    </header>
+
+    @if (loading) {
+      <div class="loading-container">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
+    } @else if (error) {
+      <div class="error-container card">
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ error }}</p>
+        <button mat-button color="primary" (click)="onGoBack()">Go back</button>
+      </div>
+    } @else if (candidate) {
+      <mat-card class="candidate-card">
+        <mat-card-header>
+          <div mat-card-avatar class="candidate-avatar">
+            <mat-icon>person</mat-icon>
+          </div>
+          <mat-card-title>{{ candidate.name }} {{ candidate.surname }}</mat-card-title>
+          <mat-card-subtitle>
+            <mat-chip-set>
+              <mat-chip [class]="'seniority-' + candidate.seniority">
+                {{ candidate.seniority | titlecase }}
+              </mat-chip>
+            </mat-chip-set>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Years of Experience</span>
+              <span class="info-value">{{ candidate.yearsOfExperience }} years</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Availability</span>
+              <span class="info-value" [class.available]="candidate.availability">
+                <mat-icon>{{ candidate.availability ? 'check_circle' : 'cancel' }}</mat-icon>
+                {{ candidate.availability ? 'Available' : 'Unavailable' }}
+              </span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Registration Date</span>
+              <span class="info-value">{{ candidate.createdAt | date:'MM/dd/yyyy HH:mm' }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Last Updated</span>
+              <span class="info-value">{{ candidate.updatedAt | date:'MM/dd/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-button (click)="onGoBack()">Go back</button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</div>

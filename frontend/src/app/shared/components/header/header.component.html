@@ -1,0 +1,23 @@
+<mat-toolbar class="header">
+  <div class="header-brand">
+    <span class="brand-text">SCIB</span>
+    <span class="brand-divider"></span>
+    <span class="brand-subtitle">Candidates Management</span>
+  </div>
+
+  <nav class="header-nav">
+    <a
+      mat-button
+      routerLink="/candidates"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon>people</mat-icon>
+      <span class="nav-text">Candidates</span>
+    </a>
+    <a mat-button routerLink="/candidates/new" routerLinkActive="active">
+      <mat-icon>person_add</mat-icon>
+      <span class="nav-text">New</span>
+    </a>
+  </nav>
+</mat-toolbar>

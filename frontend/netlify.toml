@@ -1,0 +1,21 @@
+[build]
+  base = "frontend"
+  command = "npm ci && npm run build:prod"
+  publish = "dist/scib-candidates-web/browser"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/*"
+  to = ":API_URL/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  API_URL = "https://scib-candidates-api.onrender.com"

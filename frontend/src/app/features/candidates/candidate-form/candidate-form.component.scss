@@ -1,0 +1,125 @@
+.form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+
+  h1 {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.candidate-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.file-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.file-upload-label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.file-upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover,
+  &.drag-over {
+    border-color: var(--color-primary);
+    background: rgba(236, 0, 0, 0.04);
+  }
+
+  &.has-file {
+    flex-direction: row;
+    padding: var(--spacing-md);
+    border-style: solid;
+    border-color: var(--color-success);
+    background: rgba(46, 125, 50, 0.04);
+    cursor: default;
+  }
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--color-text-secondary);
+  }
+
+  .file-name {
+    flex: 1;
+    font-weight: 500;
+    color: var(--color-text);
+    word-break: break-all;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+}
+
+.file-error {
+  font-size: 12px;
+}
+
+.file-hint {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .file-upload-area {
+    padding: var(--spacing-md);
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+    }
+  }
+}

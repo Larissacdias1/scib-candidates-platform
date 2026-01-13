@@ -1,0 +1,105 @@
+<div class="page-container">
+  <header class="page-header">
+    <h1>Candidates</h1>
+    <button mat-flat-button color="primary" (click)="onNewCandidate()">
+      <mat-icon>add</mat-icon>
+      New Candidate
+    </button>
+  </header>
+
+  @if (loading$ | async) {
+    <div class="loading-container">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    @if (error$ | async; as errorMsg) {
+      <div class="error-container">
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ errorMsg }}</p>
+        <button mat-button color="primary" (click)="onRetry()">
+          Try again
+        </button>
+      </div>
+    } @else {
+      <div class="card table-container">
+        @if ((candidates$ | async)?.length === 0) {
+          <div class="empty-state">
+            <mat-icon>inbox</mat-icon>
+            <p>No candidates registered</p>
+            <button mat-stroked-button color="primary" (click)="onNewCandidate()">
+              Register first candidate
+            </button>
+          </div>
+        } @else {
+          <table mat-table [dataSource]="(candidates$ | async) ?? []">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let candidate">{{ candidate.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="surname">
+              <th mat-header-cell *matHeaderCellDef>Surname</th>
+              <td mat-cell *matCellDef="let candidate">{{ candidate.surname }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="seniority">
+              <th mat-header-cell *matHeaderCellDef>Seniority</th>
+              <td mat-cell *matCellDef="let candidate">
+                <mat-chip-set>
+                  <mat-chip [class]="'seniority-' + candidate.seniority">
+                    {{ candidate.seniority | titlecase }}
+                  </mat-chip>
+                </mat-chip-set>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="yearsOfExperience">
+              <th mat-header-cell *matHeaderCellDef>Years Exp.</th>
+              <td mat-cell *matCellDef="let candidate">
+                {{ candidate.yearsOfExperience }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="availability">
+              <th mat-header-cell *matHeaderCellDef>Available</th>
+              <td mat-cell *matCellDef="let candidate">
+                <mat-icon [class.available]="candidate.availability">
+                  {{ candidate.availability ? 'check_circle' : 'cancel' }}
+                </mat-icon>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let candidate">
+                <button
+                  mat-icon-button
+                  (click)="onViewDetails(candidate.id); $event.stopPropagation()"
+                  aria-label="View details"
+                >
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="onDelete(candidate.id); $event.stopPropagation()"
+                  aria-label="Delete candidate"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              class="candidate-row"
+              (click)="onViewDetails(row.id)"
+            ></tr>
+          </table>
+        }
+      </div>
+    }
+  }
+</div>
