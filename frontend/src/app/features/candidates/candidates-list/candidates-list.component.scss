@@ -54,9 +54,24 @@ table {
   }
 }
 
+.seniority-intern {
+  background: #fff3e0 !important;
+  color: #e65100 !important;
+}
+
+.seniority-trainee {
+  background: #e8f5e9 !important;
+  color: #2e7d32 !important;
+}
+
 .seniority-junior {
   background: #e3f2fd !important;
   color: #1565c0 !important;
+}
+
+.seniority-mid {
+  background: #fce4ec !important;
+  color: #c2185b !important;
 }
 
 .seniority-senior {

@@ -1,4 +1,4 @@
-export type Seniority = 'junior' | 'senior';
+export type Seniority = 'intern' | 'trainee' | 'junior' | 'mid' | 'senior';
 
 export interface Candidate {
   id: string;

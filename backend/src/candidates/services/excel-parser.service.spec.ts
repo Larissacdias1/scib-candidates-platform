@@ -53,10 +53,37 @@ describe('ExcelParserService', () => {
 
     it('should throw for invalid seniority value', () => {
       const buffer = createExcelBuffer([
+        { seniority: 'expert', years: 3, availability: true },
+      ]);
+
+      expect(() => service.parse(buffer)).toThrow('Seniority must be one of');
+    });
+
+    it('should handle mid seniority', () => {
+      const buffer = createExcelBuffer([
         { seniority: 'mid', years: 3, availability: true },
       ]);
 
-      expect(() => service.parse(buffer)).toThrow('Seniority must be "junior" or "senior"');
+      const result = service.parse(buffer);
+      expect(result.seniority).toBe('mid');
+    });
+
+    it('should handle intern seniority', () => {
+      const buffer = createExcelBuffer([
+        { seniority: 'intern', years: 0, availability: true },
+      ]);
+
+      const result = service.parse(buffer);
+      expect(result.seniority).toBe('intern');
+    });
+
+    it('should handle trainee seniority', () => {
+      const buffer = createExcelBuffer([
+        { seniority: 'trainee', years: 1, availability: true },
+      ]);
+
+      const result = service.parse(buffer);
+      expect(result.seniority).toBe('trainee');
     });
 
     it('should throw for negative years of experience', () => {

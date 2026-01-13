@@ -43,9 +43,10 @@ export class ExcelParserService {
   private extractSeniority(row: Record<string, unknown>): Seniority {
     const value = this.findColumnValue(row, ['seniority', 'level']);
     const normalized = String(value).toLowerCase().trim();
+    const validLevels: Seniority[] = ['intern', 'trainee', 'junior', 'mid', 'senior'];
 
-    if (normalized !== 'junior' && normalized !== 'senior') {
-      throw new BadRequestException('Seniority must be "junior" or "senior"');
+    if (!validLevels.includes(normalized as Seniority)) {
+      throw new BadRequestException(`Seniority must be one of: ${validLevels.join(', ')}`);
     }
 
     return normalized as Seniority;
@@ -61,8 +62,8 @@ export class ExcelParserService {
 
     const parsed = Number(value);
 
-    if (isNaN(parsed) || parsed < 0 || parsed > 50) {
-      throw new BadRequestException('Years of experience must be a number between 0 and 50');
+    if (isNaN(parsed) || parsed < 0) {
+      throw new BadRequestException('Years of experience must be a positive number');
     }
 
     return Math.floor(parsed);

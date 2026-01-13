@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-export type Seniority = 'junior' | 'senior';
+export type Seniority = 'intern' | 'trainee' | 'junior' | 'mid' | 'senior';
 
 @Entity('candidates')
 export class Candidate {
@@ -13,7 +13,7 @@ export class Candidate {
   @Column({ length: 100 })
   surname: string;
 
-  @Column({ type: 'varchar', length: 10 })
+  @Column({ type: 'varchar', length: 20 })
   seniority: Seniority;
 
   @Column({ type: 'int' })

@@ -59,11 +59,11 @@ cd frontend && npm start
 
 ## Excel Format
 
-| Column       | Type    | Values               |
-| ------------ | ------- | -------------------- |
-| seniority    | string  | junior, senior       |
-| years        | number  | 0-50                 |
-| availability | boolean | true, false, yes, no |
+| Column       | Type    | Values                               |
+| ------------ | ------- | ------------------------------------ |
+| seniority    | string  | intern, trainee, junior, mid, senior |
+| years        | number  | 0+                                   |
+| availability | boolean | true, false, yes, no                 |
 
 ## Testing
 
