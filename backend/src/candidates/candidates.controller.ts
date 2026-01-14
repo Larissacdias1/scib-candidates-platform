@@ -15,6 +15,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CandidatesService } from './services';
 import { CreateCandidateDto, UpdateCandidateDto, CandidateResponseDto } from './dto';
 
+interface UploadedFileType {
+  buffer: Buffer;
+  mimetype: string;
+  originalname: string;
+  size: number;
+}
+
 @Controller('candidates')
 export class CandidatesController {
   constructor(private readonly candidatesService: CandidatesService) {}
@@ -40,7 +47,7 @@ export class CandidatesController {
   )
   async create(
     @Body() dto: CreateCandidateDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: UploadedFileType,
   ): Promise<CandidateResponseDto> {
     if (!file) {
       throw new BadRequestException('Excel file is required');
