@@ -1,16 +1,24 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CandidatesModule } from './candidates/candidates.module';
+
+const dbPath = process.env.DB_PATH || 'data/candidates.sqlite';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: process.env.DB_PATH || 'data/candidates.sqlite',
+      database: dbPath,
       autoLoadEntities: true,
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: true,
     }),
     CandidatesModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  private readonly logger = new Logger(AppModule.name);
+
+  constructor() {
+    this.logger.log(`Database path: ${dbPath}`);
+  }
+}

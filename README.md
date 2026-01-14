@@ -81,6 +81,10 @@ Test coverage includes:
 - State management (store operations)
 - Components (form validation, user interactions)
 
+## API Notes
+
+The backend does not expose a root endpoint (`/`). All functionality is available through versioned routes under `/api/*` (e.g., `/api/candidates`).
+
 ## License
 
 Proprietary - Santander Corporate & Investment Banking
